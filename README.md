@@ -1,9 +1,12 @@
 # Tape Module (WIP)
+> You can't send a [box::](https://github.com/klmr/box) without tape
+
 Rudementary module manager in the vein of yarn and npm. Load via box::use(. / tape). An example use case can be seen below:
 
+### Example 1
 > ![](example_usage.png)
 
-## Files and Functions
+# Files and Functions
 ### tape.json
 A meta-data file similar to package.json or yarn.json. This holds the details of the current project, including used modules and packages.
 
