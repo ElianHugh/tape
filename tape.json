@@ -1,0 +1,75 @@
+{
+  "name": "Tape",
+  "author": "ElianHugh",
+  "version": "0.100",
+  "modules": [
+  ],
+  "packages": [
+    {
+      "package": "compiler",
+      "version": "4.0.3",
+      "maintainer": "R Core Team <R-core@r-project.org>",
+      "repo": "Unlisted"
+    },
+    {
+      "package": "here",
+      "version": "1.0.1",
+      "maintainer": "Kirill Müller <krlmlr+r@mailbox.org>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "magrittr",
+      "version": "2.0.1",
+      "maintainer": "Lionel Henry <lionel@rstudio.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "assertthat",
+      "version": "0.2.1",
+      "maintainer": "Hadley Wickham <hadley@rstudio.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "cli",
+      "version": "2.2.0",
+      "maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "glue",
+      "version": "1.4.2",
+      "maintainer": "Jim Hester <james.f.hester@gmail.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "rstudioapi",
+      "version": "0.13",
+      "maintainer": "Kevin Ushey <kevin@rstudio.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "fansi",
+      "version": "0.4.1",
+      "maintainer": "Brodie Gaslam <brodie.gaslam@yahoo.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "box",
+      "version": "1.0.0",
+      "maintainer": "Konrad Rudolph <konrad.rudolph@gmail.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "stringi",
+      "version": "1.5.3",
+      "maintainer": "Marek Gagolewski <marek@gagolewski.com>",
+      "repo": "CRAN"
+    },
+    {
+      "package": "jsonlite",
+      "version": "1.7.2",
+      "maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
+      "repo": "CRAN"
+    }
+  ]
+}

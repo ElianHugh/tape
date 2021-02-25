@@ -13,7 +13,7 @@ cache_module <- function(git_request, input, repo) {
         cli[cli_alert],
         here[here],
         glue[glue],
-        fs[dir_copy, dir_create, dir_delete, file_create, dir_exists, file_delete],
+        fs[dir_copy, dir_create, dir_delete, file_create, dir_exists, file_delete, file_move],
         . / SHA[compare_SHA, grab_SHA],
         . / tape[tape_audit]
     )
@@ -70,9 +70,7 @@ cache_module <- function(git_request, input, repo) {
     }
 
     newDir <- dir_copy(moduleCacheLoc, loc)
-    renamedDir <- fs::file_move(newDir, glue("{here()}/modules/{input[2]}"))
-
-    # * TODO, make sha file hidden
+    renamedDir <- file_move(newDir, glue("{here()}/modules/{input[2]}"))
     shaFile <- file_create(glue("{renamedDir}/{grabbedSHA}.sha"))
     return(glue("{here()}/modules/{input[2]}"))
 }

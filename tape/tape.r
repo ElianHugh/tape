@@ -174,23 +174,46 @@ tape_audit <- function() {
     tape <- get_tape_file()
     lock <- get_lock_file()
 
-    # * TODO, make warnings more informative
     # Check tape structure
     if (length(tape) != 5) {
-        cli_alert_warning("tape.json field length must equal 5. Check tape.json for inconsistencies.")
+        cli_alert_warning(
+            "tape.json field length must equal 5. Check tape.json for inconsistencies."
+        )
     }
 
-    if (is_blank(tape$name) | is_blank(tape$author) |
-        is_blank(tape$version) | is_blank(tape$modules) | is_blank(tape$packages)) {
-        cli_alert_warning("tape.json structure is invalid. Check tape.json for missing values.")
+    if (is_blank(tape$name) |
+        is_blank(tape$author) |
+        is_blank(tape$version) |
+        is_blank(names(tape)[4]) |
+        is_blank(names(tape)[5])) {
+            blankVars <- which(
+                lapply(tape, is_blank) == TRUE
+            )
+            cli_alert_warning(
+                "tape.json structure is invalid. Missing values for: '{names(blankVars)}'."
+            )
+    }
+
+    if (is_blank(names(lock)[1]) |
+        is_blank(names(lock)[2])) {
+        blankVars <- which(
+            lapply(lock, is_blank) == TRUE
+        )
+        cli_alert_warning(
+            "tape.lock structure is invalid. Missing values for: '{names(blankVars)}'."
+        )
     }
 
     if (length(tape$modules) > 0 && length(tape$modules) != 4) {
-        cli_alert_warning("tape.json 'modules' field is invalid length. Check tape.json for errors.")
+        cli_alert_warning(
+            "tape.json 'modules' field is invalid length. Check tape.json for errors."
+        )
     }
 
     if (length(tape$packages) > 0 && length(tape$packages) != 4) {
-        cli_alert_warning("tape.json 'packages' field is invalid length. Check tape.json for errors.")
+        cli_alert_warning(
+            "tape.json 'packages' field is invalid length. Check tape.json for errors."
+        )
     }
 
     # Check if modules are properly installed
@@ -225,11 +248,21 @@ tape_audit <- function() {
 
             if (.x %in% lock$modules$moduleName) {
                 approxRecord <- get_lock_record(.x, approx = TRUE)
-                cli_alert_warning("'{.x}' approximated to '{approxRecord$author}/{.x}' from tape.lock")
-                add_to_tape(glue("{approxRecord$author}/{.x}/{approxRecord$version}"))
+                cli_alert_warning(
+                    "'{.x}' approximated to '{approxRecord$author}/{.x}' from tape.lock"
+                )
+                add_to_tape(
+                    glue("{approxRecord$author}/{.x}/{approxRecord$version}")
+                )
             } else if (file_exists(glue("{here()}/modules/{.x}/tape.json"))) {
-                remoteTape <- read_json(glue("{here()}/modules/{.x}/tape.json"), simplifyVector = TRUE)
-                remoteSHA <- list.files(glue("{here()}/modules/{.x}/"), pattern = "*.sha")[1]
+                remoteTape <- read_json(
+                    glue("{here()}/modules/{.x}/tape.json"),
+                    simplifyVector = TRUE
+                )
+                remoteSHA <- list.files(
+                    glue("{here()}/modules/{.x}/"),
+                    pattern = "*.sha"
+                )[1]
                 if (!is_blank(remoteSHA)) {
                     modSHA <- file_path_sans_ext(remoteSHA)
                 } else {
@@ -238,7 +271,9 @@ tape_audit <- function() {
 
                 add_to_tape(glue("{remoteTape$author}/{.x}/{modSHA}"))
             } else {
-                 cli_alert_warning("'{.x}' has no reference to add to tape.json")
+                 cli_alert_warning(
+                     "'{.x}' has no reference to add to tape.json"
+                 )
             }
         }))
 }
